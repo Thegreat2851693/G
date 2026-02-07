@@ -38,7 +38,7 @@
     <div class="msg" id="errorMsg">❌ เกิดข้อผิดพลาดในการแชร์</div> 
 
     <script>
-        // กำหนด Flex Message (ชุดหนังสือใหม่ 4 Bubble)
+        // กำหนด Flex Message (อัปเดต: กดที่รูปได้เลย)
         const flexMessage = {
             type: "flex",
             altText: "📚 แนะนำหนังสือน่าอ่าน โดย นตท.ชั้นปีที่ 2",
@@ -58,23 +58,12 @@
                             "animated": true,
                             "aspectMode": "cover",
                             "aspectRatio": "2.3:3",
-                            "offsetBottom": "none"
-                        },
-                        {
-                            "type": "button",
+                            "offsetBottom": "none",
                             "action": {
                             "type": "uri",
-                            "uri": "https://liff.line.me/2009072867-7KslsP48",
-                            "label": "    "
-                            },
-                            "position": "absolute",
-                            "offsetTop": "0%",
-                            "offsetEnd": "0%",
-                            "gravity": "bottom",
-                            "offsetStart": "0%",
-                            "offsetBottom": "0%",
-                            "height": "md",
-                            "style": "link"
+                            "label": "action",
+                            "uri": "https://liff.line.me/2009072867-7KslsP48"
+                            }
                         }
                         ],
                         "borderWidth": "none",
@@ -212,7 +201,7 @@
             displayMessage('loadingMsg');
             
             try {
-                // *** อัปเดต LIFF ID เป็น 2009072867-7KslsP48 ตามลิงก์ใน Bubble แรก ***
+                // *** ใช้ LIFF ID ตาม Link ใน JSON ใหม่ ***
                 await liff.init({ liffId: "2009072867-7KslsP48" });  
 
                 if (!liff.isLoggedIn()) {
