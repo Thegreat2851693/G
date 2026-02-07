@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Share Flex Message Ready</title>
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #eef2ff;
+        }
+        .msg {
+            display: none;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            font-size: 18px;
+            text-align: center;
+            color: #333;
+        }
+        #errorMsg { 
+            color: #d9534f;
+            word-break: break-word;
+            max-width: 80vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="msg" id="loadingMsg">⏳ กำลังเริ่มต้น LIFF และเตรียมการแชร์...</div>
+    <div class="msg" id="successMsg">✅ แชร์ให้เพื่อน ๆ สำเร็จแล้ว</div>
+    <div class="msg" id="errorMsg">❌ เกิดข้อผิดพลาดในการแชร์</div> 
+
+    <script>
+        // กำหนด Flex Message (ชุดหนังสือใหม่ 4 Bubble)
+        const flexMessage = {
+            type: "flex",
+            altText: "📚 แนะนำหนังสือน่าอ่าน โดย นตท.ชั้นปีที่ 2",
+            contents: {
+                "type": "carousel",
+                "contents": [
+                    {
+                    "type": "bubble",
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "contents": [
+                        {
+                            "type": "image",
+                            "url": "https://i.postimg.cc/MK3cBbLY/1.png",
+                            "size": "full",
+                            "animated": true,
+                            "aspectMode": "cover",
+                            "aspectRatio": "2.3:3",
+                            "offsetBottom": "none"
+                        },
+                        {
+                            "type": "button",
+                            "action": {
+                            "type": "uri",
+                            "uri": "https://liff.line.me/2009072867-7KslsP48",
+                            "label": "    "
+                            },
+                            "position": "absolute",
+                            "offsetTop": "0%",
+                            "offsetEnd": "0%",
+                            "gravity": "bottom",
+                            "offsetStart": "0%",
+                            "offsetBottom": "0%",
+                            "height": "md",
+                            "style": "link"
+                        }
+                        ],
+                        "borderWidth": "none",
+                        "paddingAll": "none"
+                    }
+                    },
+                    {
+                    "type": "bubble",
+                    "hero": {
+                        "type": "image",
+                        "url": "https://i.postimg.cc/Ss8SncM6/IMG-6307.png",
+                        "size": "full",
+                        "aspectMode": "cover",
+                        "aspectRatio": "2.9:3",
+                        "animated": true,
+                        "action": {
+                        "type": "uri",
+                        "label": "action",
+                        "uri": "https://m.youtube.com/shorts/tpa8YwYXaE8?feature=shared"
+                        }
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "backgroundColor": "#9370DB",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "ชื่อหนังสือ  : เคล็ดลับของคนสำเร็จ",
+                            "weight": "bold",
+                            "size": "md",
+                            "color": "#4A148C",
+                            "wrap": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "แนะนำโดย : นตท. ชิษณุพงศ์ ลิ้มศิริสัมพัทธ์",
+                            "size": "sm",
+                            "color": "#6A1B9A",
+                            "wrap": true
+                        }
+                        ],
+                        "cornerRadius": "none"
+                    }
+                    },
+                    {
+                    "type": "bubble",
+                    "hero": {
+                        "type": "image",
+                        "url": "https://i.postimg.cc/rmWVD5rG/IMG-6308.png",
+                        "size": "full",
+                        "aspectMode": "cover",
+                        "aspectRatio": "2.9:3",
+                        "animated": true,
+                        "action": {
+                        "type": "uri",
+                        "label": "action",
+                        "uri": "https://www.canva.com/design/DAGvSHMOA6A/p77bY4-2KDWCEDTNqcMADA/watch?utm_content=DAGvSHMOA6A&utm_campaign=designshare&utm_m"
+                        }
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "backgroundColor": "#9370DB",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "ชื่อหนังสือ : ความรู้รอบตัว",
+                            "weight": "bold",
+                            "size": "md",
+                            "color": "#4A148C",
+                            "wrap": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "แนะนำโดย : นตท. เจตน์สฤษฎิ์ นิวรัตน์",
+                            "size": "sm",
+                            "color": "#6A1B9A",
+                            "wrap": true
+                        }
+                        ],
+                        "cornerRadius": "none"
+                    }
+                    },
+                    {
+                    "type": "bubble",
+                    "hero": {
+                        "type": "image",
+                        "url": "https://i.postimg.cc/vB9Y45VL/IMG-6309.png",
+                        "size": "full",
+                        "aspectMode": "cover",
+                        "aspectRatio": "2.9:3",
+                        "animated": true,
+                        "action": {
+                        "type": "uri",
+                        "label": "action",
+                        "uri": "https://m.youtube.com/shorts/DMeMFFj1Zoc"
+                        }
+                    },
+                    "body": {
+                        "type": "box",
+                        "layout": "vertical",
+                        "backgroundColor": "#9370DB",
+                        "contents": [
+                        {
+                            "type": "text",
+                            "text": "ชื่อหนังสือ : ประวัติศาสตร์การเมืองราชบุรี",
+                            "weight": "bold",
+                            "size": "md",
+                            "color": "#4A148C",
+                            "wrap": true
+                        },
+                        {
+                            "type": "text",
+                            "text": "แนะนำโดย : นตท. ฉัตรชัย เย็นเปิง",
+                            "size": "sm",
+                            "color": "#6A1B9A",
+                            "wrap": true
+                        }
+                        ],
+                        "cornerRadius": "none"
+                    }
+                    }
+                ]
+            }
+        };
+
+        // ฟังก์ชันช่วยในการสลับการแสดงข้อความ
+        function displayMessage(id) {
+            document.querySelectorAll('.msg').forEach(el => el.style.display = 'none');
+            document.getElementById(id).style.display = 'block';
+        }
+
+        async function main() {
+            displayMessage('loadingMsg');
+            
+            try {
+                // *** อัปเดต LIFF ID เป็น 2009072867-7KslsP48 ตามลิงก์ใน Bubble แรก ***
+                await liff.init({ liffId: "2009072867-7KslsP48" });  
+
+                if (!liff.isLoggedIn()) {
+                    liff.login();
+                    return;
+                }
+                
+                if (!liff.isApiAvailable("shareTargetPicker")) {
+                    throw new Error("API shareTargetPicker ไม่รองรับ (โปรดเปิดในแอป LINE)");
+                }
+
+                document.getElementById("loadingMsg").style.display = "none";
+
+                // เปิดตัวเลือกการแชร์
+                const result = await liff.shareTargetPicker([flexMessage]);
+                
+                if (result) {
+                    displayMessage('successMsg');
+                    setTimeout(() => liff.closeWindow(), 2000);
+                } else {
+                    liff.closeWindow();
+                }
+
+            } catch (err) {
+                console.error("Share Error:", err);
+                const errorMsgElement = document.getElementById('errorMsg');
+                errorMsgElement.innerHTML = `❌ เกิดข้อผิดพลาดในการแชร์: <br> ${err.message || 'ไม่ทราบสาเหตุ'}`;
+                displayMessage('errorMsg'); 
+                setTimeout(() => liff.closeWindow(), 5000); 
+            }
+        }
+
+        main();
+    </script>
+</body>
+</html>
